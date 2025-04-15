@@ -7,11 +7,8 @@ import datetime
 import math
 
 class Satellite(Entity):
-    def __init__(self, **kwargs):
-        with open('../response.json') as file:
-            self.data = json.load(file)
-        iss_data = self.data['member'][0]    
-        self.iss = ephem.readtle(iss_data['name'], iss_data['line1'], iss_data['line2'])
+    def __init__(self, tleData, **kwargs):
+        self.iss = ephem.readtle(tleData['name'], tleData['line1'], tleData['line2'])
         
         self.wpi = ephem.Observer()
         self.wpi.lon, self.wpi.lat = -42.2741, 71.8080

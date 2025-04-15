@@ -1,17 +1,17 @@
 import pandas as pd
 from ursina import *
 import numpy as np
-import Stars
-import Earth
-import Satellite
+from Entities.Stars import *
+from Entities.Earth import *
+from Entities.Satellites.Satellites import *
 
 
 app = Ursina()
 
 
-stars = Stars.Stars()
-earth = Earth.Earth()
-sats = Satellite.Satellite()
+stars = Stars()
+earth = Earth()
+sats = Satellites()
 
 
 EditorCamera()  # add camera controls for orbiting and moving the camera
