@@ -27,7 +27,7 @@ class Satellite(Entity):
     def update(self):
         self.wpi.date = datetime.datetime.now(datetime.UTC)
         self.iss.compute(self.wpi)
-        self.position=Vec3(2 * math.cos(float(self.iss.ra)) * math.cos(float(self.iss.dec)), 2 * math.sin(float(self.iss.dec)), 2 * math.sin(float(self.iss.ra)) * math.cos(float(self.iss.dec)))
+        self.position=Vec3(2 * math.sin(float(self.iss.ra)) * math.sin(float(self.iss.dec)), 2 * math.cos(float(self.iss.ra)), 2 * math.sin(float(self.iss.ra)) * math.cos(float(self.iss.dec)))
 
         
         # super().__init__(model='sphere', texture='./earthmap1k.jpg', scale=1, collider='box')
