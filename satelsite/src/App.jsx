@@ -7,12 +7,14 @@ import { useRef } from "react";
 import "./App.css";
 import { Scene } from "three";
 import Stars from "./components/Stars";
+import Accel from "./components/Accel";
 
 function App() {
     const container = useRef();
     return (
         <div ref={container} className="container">
-            <View
+            <Accel />
+            {/* <View
                 index={1}
                 style={{
 
@@ -39,7 +41,7 @@ function App() {
                 <Moon position={[3, 0, 0]} />
                 <Stars />
                 <OrbitControls />
-            </View>
+            </View> */}
             {/* <View
                 index={1}
                 style={{
@@ -62,9 +64,9 @@ function App() {
                 <OrbitControls />
             </View> */}
 
-            <Canvas eventSource={document.getElementById("root")} className="canvas">
+            {/* <Canvas eventSource={document.getElementById("root")} className="canvas">
                 <View.Port />
-            </Canvas>
+            </Canvas> */}
         </div>
     );
 }

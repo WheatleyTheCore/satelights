@@ -13,7 +13,7 @@ class Satellites(Entity):
             self.data = json.load(file)
         sattelite_data = self.data['member'] 
         for tle in sattelite_data:
-            if '2025' in tle["date"]:
+            if '2025' in tle["date"]: 
                 Satellite(tleData=tle) 
         
         
