@@ -16,7 +16,7 @@ ws_thread.start()
 
 
 
-app = Ursina(size=(500, 500))
+app = Ursina(size=(800, 800))
 
 # screen = screeninfo.get_monitors()[0]
 # window.size = (screen.width, screen.height)
@@ -55,12 +55,12 @@ def postprocess_frame():
     # Convert from BGR/BGRA to RGB/RGBA if necessary
     if components >= 3:
         image_np = image_np[:, :, ::-1]
-    print(image_np.shape)
+    # print(image_np.shape)
 
 
 
 def update():
-    print(window.size)
+    # print(window.size)
     postprocess_frame()
     
 
