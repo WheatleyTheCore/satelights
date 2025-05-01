@@ -6,7 +6,6 @@ from Entities.Earth import *
 from Entities.Satellites.Satellites import *
 from Entities.Planets.Planets import *
 from webSocketUtils import *
-from displayHandler import *
 import threading
 from PIL import Image, ImageOps
 from panda3d.core import PNMImage, FrameBufferProperties, WindowProperties, GraphicsPipe, Texture
