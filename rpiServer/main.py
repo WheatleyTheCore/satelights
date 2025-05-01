@@ -11,7 +11,7 @@ async def handle_client(websocket):
         async for message in websocket:
             print(f"Received: {message}")
             pixels = json.loads(message)
-            assert len(pixels <= 11 * 98), 'too many pixels sent'
+            assert len(pixels) <= 11 * 98, 'too many pixels sent'
             for i, rgb in enumerate(pixels):
                 pixels[i] = rgb
                 if i < 11 * 98: 
