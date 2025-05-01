@@ -13,11 +13,7 @@ def handle_client(websocket):
         for message in websocket:
             pixeldata = json.loads(message)
             assert len(pixeldata) <= 11 * 98, 'too many pixels sent'
-            for i, rgb in enumerate(pixeldata):
-                print(rgb)
-                pixels[i] = rgb
-                if i < 11 * 98: 
-                    break
+            pixels.fill((0, 255, 0))
             pixels.show()
             time.sleep(1)
             
