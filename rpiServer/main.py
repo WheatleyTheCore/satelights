@@ -24,7 +24,7 @@ def handle_client(websocket):
     except Exception as e:
         print(f"Connection closed: {e}")
 
-async def main():
+def main():
     with serve(handle_client, "0.0.0.0", 8989) as server:
         print("WebSocket server started on ws://localhost:8989")
         server.serve_forever()
