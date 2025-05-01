@@ -7,6 +7,7 @@ import time
 
 
 def handle_client(websocket):
+    global pixels
     try:
         for message in websocket:
             pixeldata = json.loads(message)
@@ -23,16 +24,11 @@ def handle_client(websocket):
     except Exception as e:
         print(f"Connection closed: {e}")
 
-def main():
-    with serve(handle_client, "0.0.0.0", 8989) as server:
-        print("WebSocket server started on ws://localhost:8989")
-        server.serve_forever()
+    
 
 if __name__ == "__main__":
     # main()
     pixels = neopixel.NeoPixel(board.D18, 11 * 98)
-    while True:
-        pixels.fill((255, 0, 0))
-        time.sleep(1)
-        pixels.fill((0, 0, 0))
-        time.sleep(1)
+    with serve(handle_client, "0.0.0.0", 8989) as server:
+        print("WebSocket server started on ws://localhost:8989")
+        server.serve_forever()
