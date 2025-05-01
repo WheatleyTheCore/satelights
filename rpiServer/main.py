@@ -7,7 +7,6 @@ import time
 
 
 def handle_client(websocket):
-    pixels = neopixel.NeoPixel(board.D18, 11 * 98)
     try:
         for message in websocket:
             pixeldata = json.loads(message)
@@ -30,4 +29,10 @@ def main():
         server.serve_forever()
 
 if __name__ == "__main__":
-    main()
+    # main()
+    pixels = neopixel.NeoPixel(board.D18, 11 * 98)
+    while True:
+        pixels.fill((255, 0, 0))
+        time.sleep(1)
+        pixels.fill((0, 0, 0))
+        time.sleep(1)
