@@ -1,15 +1,15 @@
 import asyncio
-import websockets
+from websockets.sync.server import serve
 import board
 import neopixel
 import json
+import time
 pixels = neopixel.NeoPixel(board.D18, 11 * 98)
 
 
-async def handle_client(websocket):
+def handle_client(websocket):
     try:
-        async for message in websocket:
-            print(f"Received: {message}")
+        for message in websocket:
             pixeldata = json.loads(message)
             assert len(pixeldata) <= 11 * 98, 'too many pixels sent'
             for i, rgb in enumerate(pixeldata):
@@ -17,14 +17,16 @@ async def handle_client(websocket):
                 if i < 11 * 98: 
                     break
             pixels.show()
+            time.sleep(0.001)
+            
             # Process the received message
-    except websockets.exceptions.ConnectionClosed as e:
+    except Exception as e:
         print(f"Connection closed: {e}")
 
 async def main():
-    async with websockets.serve(handle_client, "0.0.0.0", 8989):
+    with serve(handle_client, "0.0.0.0", 8989) as server:
         print("WebSocket server started on ws://localhost:8989")
-        await asyncio.Future()  # Run forever
+        server.serve_forever()
 
 if __name__ == "__main__":
     asyncio.run(main())
