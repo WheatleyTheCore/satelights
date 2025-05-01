@@ -10,7 +10,7 @@ async def displaySim():
 
     def update(frame):
         # for each frame, update the data stored on each artist.
-        ax.matshow(np.random.rand(15, 15))
+        ax.matshow(np.random.rand(12, 86))
         plt.pause(0.01)
 
     ani = animation.FuncAnimation(fig=fig, func=update, frames=10, interval=30)
