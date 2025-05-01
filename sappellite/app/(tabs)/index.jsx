@@ -9,12 +9,14 @@ export default function HomeScreen() {
     //     accy: 0,
     //     accz: 0,
     // });
+
     const [magSubscription, setMagSubscription] = useState(null);
     const [accSubscription, setAccSubscription] = useState(null);
     const [isWsOpen, setIsWsOpen] = useState(false);
+    const [sensorData, setSensorData] = useState();
 
-    const magDataRef = useRef("");
-    const accDataRef = useState("");
+    const magDataRef = useRef([""]);
+    const accDataRef = useRef([""]);
     const wsRef = useRef();
     const intervalRef = useRef();
 
@@ -30,14 +32,21 @@ export default function HomeScreen() {
     const _subscribe = () => {
         setMagSubscription(
             Magnetometer.addListener((result) => {
-                magDataRef.current = [result.x.toFixed(5), result.y.toFixed(5), result.z.toFixed(5)];
+                magDataRef.current = [
+                    result.x.toFixed(5),
+                    result.y.toFixed(5),
+                    result.z.toFixed(5),
+                ];
             })
         );
         setAccSubscription(
-            Accelerometer.addListener(
-                (result) =>
-                    (accDataRef.current = [result.x.toFixed(5), result.y.toFixed(5), result.z.toFixed(5)])
-            )
+            Accelerometer.addListener((result) => {
+                accDataRef.current = [
+                    result.x.toFixed(5),
+                    result.y.toFixed(5),
+                    result.z.toFixed(5),
+                ];
+            })
         );
     };
 
@@ -57,6 +66,12 @@ export default function HomeScreen() {
             setIsWsOpen(true);
             intervalRef.current = setInterval(() => {
                 sendData(wsRef.current);
+                setSensorData(
+                    JSON.stringify({
+                        acc: accDataRef.current,
+                        mag: magDataRef.current,
+                    })
+                );
             }, 25);
         };
 
@@ -86,6 +101,31 @@ export default function HomeScreen() {
         );
     };
 
+    const vecToAscDec = (accl) => {
+        let [x, y, z] = accl
+        const ra = Math.atan2(y, x).toFixed(5);
+        const dec =
+            (Math.PI / 2 - Math.atan2(z, Math.sqrt(x * x + y * y + z * z))).toFixed(5);
+        // may need to remove the pi/2
+        return { ra, dec };
+    };
+
+    const magAngle = (mag) => {
+        let [x, y, z] = mag
+        let angle = 0;
+        if (Math.atan2(y, x) >= 0) {
+            angle = Math.atan2(y, x) * (180 / Math.PI);
+        } else {
+            angle = (Math.atan2(y, x) + 2 * Math.PI) * (180 / Math.PI);
+        }
+        let unajusted =  Math.round(angle);
+        let deg = unajusted - 90 >= 0
+        ? unajusted - 90
+        : unajusted + 271;
+
+        return (Math.PI - deg * Math.PI/180).toFixed(7)
+    };
+
     // useEffect(() => {
     //     magDataRef.current = JSON.stringify([magx, magy, magz]);
     // }, [magx, magy, magz]);
@@ -112,21 +152,22 @@ export default function HomeScreen() {
         );
     }
 
+    // Accel: 0 0 1 is pointing up
+    // mag: -x, -50, -7 (ish) is
+
     return (
         <View style={styles.container}>
             {magSubscription && accSubscription ? (
                 <>
-                    <Text style={styles.text}>Magnetometer:</Text>
-                    <Text style={styles.text}>magx: {magDataRef.current[0] || ''}</Text>
-                    <Text style={styles.text}>magy: {magDataRef.current[1] || ''}</Text>
-                    <Text style={styles.text}>magz: {magDataRef.current[2] || ''}</Text>
-                    <Text style={styles.text}>Accelerometer:</Text>
-                    <Text style={styles.text}>accx: {accDataRef.current[0] || ''}</Text>
-                    <Text style={styles.text}>accy: {accDataRef.current[1] || ''}</Text>
-                    <Text style={styles.text}>accz: {accDataRef.current[2] || ''}</Text>
+                    <Text style={styles.text}>
+                        mag {JSON.stringify(magAngle(magDataRef.current))}
+                    </Text>
+                    <Text style={styles.text}>
+                        acc {JSON.stringify(vecToAscDec(accDataRef.current))}
+                    </Text>
                 </>
             ) : (
-                <></>
+                <Text>no access to sensors</Text>
             )}
 
             <View style={styles.buttonContainer}>
@@ -164,7 +205,7 @@ const styles = StyleSheet.create({
     },
     text: {
         textAlign: "center",
-        color: 'black'
+        color: "black",
     },
     buttonContainer: {
         flexDirection: "row",

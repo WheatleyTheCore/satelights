@@ -36,11 +36,13 @@ class Earth(Entity):
         z = earthRadius * cos(lat_rad) * sin(lon_rad)
         
         self.upDirection = Vec3(9 * x, 9 * y, 9 * z)
-        
+        self.viewerPos = Vec3(x, y, z)
+        self.northDirection = Vec3(0, 0.5, 0) - self.viewerPos
+        self.rightDirection = self.northDirection.cross(self.upDirection)
+
         self.viewer = Entity(model='cube', color=color.orange, scale=(0.03, 0.03, 0.5), position=(x, y, z))
         
         self.viewer.look_at(self.upDirection)
-        
         # EditorCamera()  # add camera controls for orbiting and moving the camera
         camera.position = (x, y, z)
         camera.look_at(self.upDirection)
@@ -49,9 +51,10 @@ class Earth(Entity):
     def update(self):
         if (globals.communicationQueue.qsize() > 0):
             sensorData = json.loads(globals.communicationQueue.get())
+            
             accelData = sensorData['acc']
             print(accelData)
-            self.viewer.look_at(Vec3( 2 * self.upDirection +  2 *Vec3(float(accelData[0]), float(accelData[2]), float(accelData[1]))))
+            camera.look_at(Vec3(float(accelData[0])* 2, float(accelData[2]) * 2, 2 * float(accelData[1])))
             
     def getMagnetometerAngle(self, magData):
         x, y, z = magData

@@ -43,14 +43,16 @@ earth = Earth()
 sats = Satellites()
 planets = Planets()
 
-websocket = connect('ws://192.168.1.70:8989')
 
-while not websocket:
-    print('could not connect to socket... retrying')
-    time.sleep(1)
+if not simulation:
     websocket = connect('ws://192.168.1.70:8989')
 
-print('connected')
+    while not websocket:
+        print('could not connect to socket... retrying')
+        time.sleep(1)
+        websocket = connect('ws://192.168.1.70:8989')
+
+    print('connected')
 
 frame = PNMImage()
 matrixAspectRatio = 86 / 12
@@ -109,7 +111,7 @@ def postprocess_frame():
                 img_cell = rgba_image[row_start:row_start + cell_height_px, col_start:col_start+cell_width_px, :]
             contains_sat = np.where( np.all(img_cell == satColor, axis=-1))[0].size != 0
             contains_planet = np.where( np.all(img_cell == planetColor, axis=-1))[0].size != 0
-            contains_star = np.where( np.all(img_cell == starColor, axis=-1))[0].size != 0
+            contains_star = np.where( np.all(img_cell == starColor, axis=-1))[0].size > 3
             
             if contains_sat:
                 rgb_sequence.append((255, 0, 128))
@@ -128,15 +130,16 @@ def postprocess_frame():
     except Exception as e:
         print(f"Error sending message: {e}")
 
-update_counter = 0
+last_sent = None
 
 def update():
-    global update_counter
-    if update_counter <= 5:
-        postprocess_frame()
-        update_counter = 0
-    else: 
-        update_counter += 1    
+    global simulation
+    if not simulation:
+        global last_sent
+        if not last_sent or time.time() - last_sent > 1:
+            postprocess_frame()
+            update_counter = 0
+            last_sent = time.time()
     
 
 app.run()
