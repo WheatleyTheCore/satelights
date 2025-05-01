@@ -12,8 +12,8 @@ from panda3d.core import PNMImage, FrameBufferProperties, WindowProperties, Grap
 from direct.showbase.BufferViewer import BufferViewer
 from skyfield.api import load
 import argparse
-import asyncio
-
+from websockets.sync.client import connect
+import time
 
 
 parser = argparse.ArgumentParser(description="Display Controller!")
@@ -43,7 +43,14 @@ earth = Earth()
 sats = Satellites()
 planets = Planets()
 
+websocket = connect('ws://192.168.1.70:8989')
 
+while not websocket:
+    print('could not connect to socket... retrying')
+    time.sleep(1)
+    websocket = connect('ws://192.168.1.70:8989')
+
+print('connected')
 
 frame = PNMImage()
 matrixAspectRatio = 86 / 12
@@ -87,12 +94,12 @@ def postprocess_frame():
     planetColor = (128,0,255,255)
     
     rows, cols, _ = rgba_image.shape
-    cell_height_px = rows // 90 # since 86 lights per row
+    cell_height_px = rows // 98 # since 86 lights per row
     cell_width_px = cols // 11 # since 11 columns
     
     rgb_sequence = []
     for col_idx in range(11):
-        for row_idx in range(90):
+        for row_idx in range(98):
             row_start = row_idx * cell_height_px
             col_start = col_idx * cell_width_px
             img_cell = None
@@ -113,21 +120,11 @@ def postprocess_frame():
             else:
                 rgb_sequence.append((0, 0, 0))
                 
-    if (not simulation):
-        import board
-        import neopixel
-        pixels = neopixel.NeoPixel(board.D18, 11 * 98)
-        pixel_idx = 0
-        rgb_seq_idx = 0
-        for col in range(11):
-            for row in range(90):
-                pixels[pixel_idx] = rgb_sequence[rgb_seq_idx]
-                pixel_idx += 1
-                rgb_seq_idx +=1 
-            for i in range (8):
-                pixels[pixel_idx] = (0, 0, 0)
-                pixel_idx +=1 
-        pixels.show()
+            try:
+                websocket.send(json.dumps(rgb_sequence))
+                print(f"Sent sequence")
+            except Exception as e:
+                print(f"Error sending message: {e}")
 
 
 
