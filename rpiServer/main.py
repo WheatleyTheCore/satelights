@@ -13,7 +13,7 @@ def handle_client(websocket):
         for message in websocket:
             pixeldata = json.loads(message)
             assert len(pixeldata) <= 11 * 98, 'too many pixels sent'
-            pixels = pixeldata[:11*98]
+            pixels[:11*98 - 1] = pixeldata[:11*98 - 1]
             pixels.show()
             time.sleep(0.3)
             
