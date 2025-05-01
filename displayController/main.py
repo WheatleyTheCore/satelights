@@ -1,15 +1,17 @@
 import pandas as pd
 from ursina import *
 import numpy as np
-from Entities.Stars import *
+from Entities.SimpleStars import *
 from Entities.Earth import *
 from Entities.Satellites.Satellites import *
+from Entities.Planets.Planets import *
 from webSocketUtils import *
 import threading
 from PIL import Image
 from panda3d.core import PNMImage, FrameBufferProperties, WindowProperties, GraphicsPipe, Texture
 from direct.showbase.BufferViewer import BufferViewer
 import screeninfo
+from skyfield.api import load
 
 ws_thread = threading.Thread(target=startListneningToSocket, daemon=True)
 ws_thread.start()
@@ -24,6 +26,7 @@ app = Ursina(size=(800, 800))
 stars = Stars()
 earth = Earth()
 sats = Satellites()
+planets = Planets()
 
 
 EditorCamera()  # add camera controls for orbiting and moving the camera
