@@ -6,17 +6,32 @@ from Entities.Earth import *
 from Entities.Satellites.Satellites import *
 from Entities.Planets.Planets import *
 from webSocketUtils import *
+from displayHandler import *
 import threading
 from PIL import Image
 from panda3d.core import PNMImage, FrameBufferProperties, WindowProperties, GraphicsPipe, Texture
 from direct.showbase.BufferViewer import BufferViewer
 import screeninfo
 from skyfield.api import load
+import argparse
 
+
+
+parser = argparse.ArgumentParser(description="Display Controller!")
+parser.add_argument("-s", "--simulation", action="store_true", help="is this a simulations? or should it try to connect to the LED matrix?")
+
+simulation = False
+args = parser.parse_args()
+
+if (args.simulation):
+    simulation = True
+
+disp_thread = threading.Thread(target=startDisplayServer, args=(simulation,), daemon=True)
+disp_thread.start()
 ws_thread = threading.Thread(target=startListneningToSocket, daemon=True)
 ws_thread.start()
 
-
+window.borderless=False 
 
 app = Ursina(size=(800, 800))
 
@@ -29,7 +44,6 @@ sats = Satellites()
 planets = Planets()
 
 
-EditorCamera()  # add camera controls for orbiting and moving the camera
 
 frame = PNMImage()
 
@@ -61,10 +75,11 @@ def postprocess_frame():
     # print(image_np.shape)
 
 
-
 def update():
-    # print(window.size)
     postprocess_frame()
+
+
+    
     
 
 app.run()

@@ -3,10 +3,10 @@ from ursina import *
 import numpy as np
 import globals
 import json
-from math import sin, cos, radians
+from math import sin, cos, radians, degrees, acos, asin
 
 class Earth(Entity):
-    
+    radToDeg = 180 / math.pi
     
     def __init__(self, **kwargs):
         super().__init__(model='sphere', texture='./earthmap1k.jpg', scale=1, collider='box')
@@ -35,12 +35,23 @@ class Earth(Entity):
         y = earthRadius * sin(lat_rad)
         z = earthRadius * cos(lat_rad) * sin(lon_rad)
         
-        marker = Entity(model='sphere', color=color.red, scale=0.05, position=(x, y, z))
+        self.upDirection = Vec3(2 * x, 2 * y, 2 * z)
         
-    def update(self):
-        if (globals.communicationQueue.qsize() > 0):
-            magData = json.loads(globals.communicationQueue.get())
-            print(magData)
+        self.viewer = Entity(model='cube', color=color.violet, scale=(0.03, 0.03, 1), position=(x, y, z))
+        
+        self.viewer.look_at(self.upDirection)
+        
+        EditorCamera()  # add camera controls for orbiting and moving the camera
+        camera.position = (x, y, z)
+        camera.look_at(self.upDirection)
+        
+        
+    # def update(self):
+    #     if (globals.communicationQueue.qsize() > 0):
+    #         sensorData = json.loads(globals.communicationQueue.get())
+    #         accelData = sensorData['acc']
+    #         self.viewer.look_at(self.upDirection + Vec3(float(accelData[0]), float(accelData[2]), float(accelData[1])))
+    #         print(sensorData)
             
     def getMagnetometerAngle(self, magData):
         x, y, z = magData
