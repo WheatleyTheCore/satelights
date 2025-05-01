@@ -31,12 +31,10 @@ class Stars(Entity):
         
                 
         starData = np.column_stack((ra.radians, dec.radians, distance.au * globals.au_to_program_space))
-        print(distance.au)
         verticies = np.array([]) 
         for star in starData:
             np.append(verticies, utils.radecToXYZ(star[0], star[1], star[2]))
             
-        print(verticies)
         super().__init__(model=Mesh(vertices=verticies, mode='point', static=False, render_points_in_3d=True, thickness=1), **kwargs)
    
         

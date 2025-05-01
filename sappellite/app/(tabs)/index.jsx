@@ -1,34 +1,51 @@
 import { useState, useEffect, useRef } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { Magnetometer } from "expo-sensors";
+import { Magnetometer, Accelerometer } from "expo-sensors";
 
 export default function HomeScreen() {
-    const [{ x, y, z }, setData] = useState({
-        x: 0,
-        y: 0,
-        z: 0,
-    });
-    const [subscription, setSubscription] = useState(null);
+    // const [magData, setMagData] = useState('');
+    // const [{ accx, accy, accz }, setAccData] = useState({
+    //     accx: 0,
+    //     accy: 0,
+    //     accz: 0,
+    // });
+    const [magSubscription, setMagSubscription] = useState(null);
+    const [accSubscription, setAccSubscription] = useState(null);
     const [isWsOpen, setIsWsOpen] = useState(false);
 
-    const dataRef = useRef("");
+    const magDataRef = useRef("");
+    const accDataRef = useState("");
     const wsRef = useRef();
     const intervalRef = useRef();
 
-    const _slow = () => Magnetometer.setUpdateInterval(1000);
-    const _fast = () => Magnetometer.setUpdateInterval(16);
+    const _slow = () => {
+        Accelerometer.setUpdateInterval(1000);
+        Magnetometer.setUpdateInterval(1000);
+    };
+    const _fast = () => {
+        Accelerometer.setUpdateInterval(16);
+        Magnetometer.setUpdateInterval(16);
+    };
 
     const _subscribe = () => {
-        setSubscription(
+        setMagSubscription(
             Magnetometer.addListener((result) => {
-                setData(result);
+                magDataRef.current = [result.x.toFixed(5), result.y.toFixed(5), result.z.toFixed(5)];
             })
+        );
+        setAccSubscription(
+            Accelerometer.addListener(
+                (result) =>
+                    (accDataRef.current = [result.x.toFixed(5), result.y.toFixed(5), result.z.toFixed(5)])
+            )
         );
     };
 
     const _unsubscribe = () => {
-        subscription && subscription.remove();
-        setSubscription(null);
+        magSubscription && magSubscription.remove();
+        accSubscription && accSubscription.remove();
+        setMagSubscription(null);
+        setAccSubscription(null);
     };
 
     const connectToWs = () => {
@@ -40,7 +57,7 @@ export default function HomeScreen() {
             setIsWsOpen(true);
             intervalRef.current = setInterval(() => {
                 sendData(wsRef.current);
-            }, 10);
+            }, 25);
         };
 
         wsRef.current.onclose = () => {
@@ -61,12 +78,21 @@ export default function HomeScreen() {
     };
 
     const sendData = () => {
-        wsRef.current.send(dataRef.current);
+        wsRef.current.send(
+            JSON.stringify({
+                acc: accDataRef.current,
+                mag: magDataRef.current,
+            })
+        );
     };
 
-    useEffect(() => {
-        dataRef.current = JSON.stringify([x, y, z]);
-    }, [x, y, z]);
+    // useEffect(() => {
+    //     magDataRef.current = JSON.stringify([magx, magy, magz]);
+    // }, [magx, magy, magz]);
+
+    // useEffect(() => {
+    //     accDataRef.current = JSON.stringify([accx, accy, accz]);
+    // }, [accx, accy, accz]);
 
     useEffect(() => {
         _subscribe();
@@ -88,16 +114,33 @@ export default function HomeScreen() {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>Magnetometer:</Text>
-            <Text style={styles.text}>x: {x}</Text>
-            <Text style={styles.text}>y: {y}</Text>
-            <Text style={styles.text}>z: {z}</Text>
+            {magSubscription && accSubscription ? (
+                <>
+                    <Text style={styles.text}>Magnetometer:</Text>
+                    <Text style={styles.text}>magx: {magDataRef.current[0] || ''}</Text>
+                    <Text style={styles.text}>magy: {magDataRef.current[1] || ''}</Text>
+                    <Text style={styles.text}>magz: {magDataRef.current[2] || ''}</Text>
+                    <Text style={styles.text}>Accelerometer:</Text>
+                    <Text style={styles.text}>accx: {accDataRef.current[0] || ''}</Text>
+                    <Text style={styles.text}>accy: {accDataRef.current[1] || ''}</Text>
+                    <Text style={styles.text}>accz: {accDataRef.current[2] || ''}</Text>
+                </>
+            ) : (
+                <></>
+            )}
+
             <View style={styles.buttonContainer}>
                 <TouchableOpacity
-                    onPress={subscription ? _unsubscribe : _subscribe}
+                    onPress={
+                        magSubscription && accSubscription
+                            ? _unsubscribe
+                            : _subscribe
+                    }
                     style={styles.button}
                 >
-                    <Text>{subscription ? "On" : "Off"}</Text>
+                    <Text>
+                        {magSubscription && accSubscription ? "On" : "Off"}
+                    </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={_slow}
@@ -121,6 +164,7 @@ const styles = StyleSheet.create({
     },
     text: {
         textAlign: "center",
+        color: 'black'
     },
     buttonContainer: {
         flexDirection: "row",

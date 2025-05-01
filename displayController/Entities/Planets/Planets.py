@@ -14,7 +14,6 @@ class Planets(Entity):
         
         eph = load('de421.bsp')
         ts = load.timescale()
-        print(eph)
 
         for planet in ['mercury barycenter', 'venus barycenter', 'mars barycenter', 'saturn barycenter', 'uranus barycenter', 'neptune barycenter', 'pluto barycenter']:
             Planet(eph[planet], eph['Earth'], ts)        

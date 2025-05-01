@@ -40,7 +40,7 @@ class Earth(Entity):
     def update(self):
         if (globals.communicationQueue.qsize() > 0):
             magData = json.loads(globals.communicationQueue.get())
-            print(self.getMagnetometerAngle(magData))
+            print(magData)
             
     def getMagnetometerAngle(self, magData):
         x, y, z = magData

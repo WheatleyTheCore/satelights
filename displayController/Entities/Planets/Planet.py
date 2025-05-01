@@ -18,7 +18,7 @@ class Planet(Entity):
         super().__init__(
             model='sphere',
             color=color.violet,
-            scale=.5, 
+            scale=.3, 
             collider='box',
             position=utils.radecToXYZ(ra.radians, dec.radians, distance)
         )

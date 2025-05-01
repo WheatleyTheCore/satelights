@@ -18,7 +18,6 @@ class Satellite(Entity):
         self.wpi.date = datetime.datetime.now(datetime.UTC)
         self.iss.compute(self.wpi)
         
-        print(tleData['name'])
         
         
                 

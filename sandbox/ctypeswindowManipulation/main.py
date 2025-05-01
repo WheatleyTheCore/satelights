@@ -14,13 +14,11 @@ def screenshot_window(window_title):
         width, height = window.width, window.height
         
         screenshot = pyautogui.screenshot()
-        cropped_screenshot = screenshot.crop((left, top, left + width, top + height))
-        cropped_screenshot.save(filename)
-        print(f"Screenshot saved as {filename}")
+        
     except IndexError:
         print(f"Window with title '{window_title}' not found.")
     except Exception as e:
         print(f"An error occurred: {e}")
 
 # Example usage
-screenshot_window("Calculator", "calculator.png")
+screenshot_window("CalcSateLightsulator", "calculator.png")
