@@ -120,11 +120,13 @@ def postprocess_frame():
             else:
                 rgb_sequence.append((0, 0, 0))
                 
-            try:
-                websocket.send(json.dumps(rgb_sequence))
-                print(f"Sent sequence")
-            except Exception as e:
-                print(f"Error sending message: {e}")
+            
+                
+    try:
+        websocket.send(json.dumps(rgb_sequence))
+        print(f"Sent sequence")
+    except Exception as e:
+        print(f"Error sending message: {e}")
 
 update_counter = 0
 
