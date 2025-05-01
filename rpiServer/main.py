@@ -4,10 +4,10 @@ import board
 import neopixel
 import json
 import time
-pixels = neopixel.NeoPixel(board.D18, 11 * 98)
 
 
 def handle_client(websocket):
+    pixels = neopixel.NeoPixel(board.D18, 11 * 98)
     try:
         for message in websocket:
             pixeldata = json.loads(message)
