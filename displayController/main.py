@@ -32,7 +32,7 @@ ws_thread.start()
 
 window.borderless=False 
 window.always_on_top = True
-px_per_ft = 20
+px_per_ft = 80
 app = Ursina(size=(11 * px_per_ft, 16 * px_per_ft))
 
 # screen = screeninfo.get_monitors()[0]
