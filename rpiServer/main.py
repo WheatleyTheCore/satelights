@@ -5,6 +5,8 @@ import neopixel
 import json
 import time
 
+pixels = neopixel.NeoPixel(board.D18, 11 * 98)
+
 
 def handle_client(websocket):
     global pixels
@@ -18,7 +20,7 @@ def handle_client(websocket):
                 if i < 11 * 98: 
                     break
             pixels.show()
-            time.sleep(0.001)
+            time.sleep(1)
             
             # Process the received message
     except Exception as e:
@@ -28,7 +30,6 @@ def handle_client(websocket):
 
 if __name__ == "__main__":
     # main()
-    pixels = neopixel.NeoPixel(board.D18, 11 * 98)
     with serve(handle_client, "0.0.0.0", 8989) as server:
         print("WebSocket server started on ws://localhost:8989")
         server.serve_forever()
