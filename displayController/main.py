@@ -11,7 +11,6 @@ import threading
 from PIL import Image, ImageOps
 from panda3d.core import PNMImage, FrameBufferProperties, WindowProperties, GraphicsPipe, Texture
 from direct.showbase.BufferViewer import BufferViewer
-import screeninfo
 from skyfield.api import load
 import argparse
 import asyncio

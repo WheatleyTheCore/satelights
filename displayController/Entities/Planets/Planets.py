@@ -1,9 +1,7 @@
 import pandas as pd
 from ursina import *
 import numpy as np
-import ephem
 import json
-import datetime
 from skyfield.api import load
 import math
 import json
