@@ -126,10 +126,15 @@ def postprocess_frame():
             except Exception as e:
                 print(f"Error sending message: {e}")
 
-
+update_counter = 0
 
 def update():
-    postprocess_frame()    
+    global update_counter
+    if update_counter <= 5:
+        postprocess_frame()
+        update_counter = 0
+    else: 
+        update_counter += 1    
     
 
 app.run()
