@@ -42,8 +42,8 @@ class Earth(Entity):
         self.viewer.look_at(self.upDirection)
         
         # EditorCamera()  # add camera controls for orbiting and moving the camera
-        # camera.position = (x, y, z)
-        # camera.look_at(self.upDirection)
+        camera.position = (x, y, z)
+        camera.look_at(self.upDirection)
         
         
     def update(self):
