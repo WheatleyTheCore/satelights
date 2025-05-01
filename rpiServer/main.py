@@ -13,9 +13,9 @@ def handle_client(websocket):
         for message in websocket:
             pixeldata = json.loads(message)
             assert len(pixeldata) <= 11 * 98, 'too many pixels sent'
-            pixels.fill((0, 255, 0))
+            pixels = pixeldata[:11*98]
             pixels.show()
-            time.sleep(1)
+            time.sleep(0.3)
             
             # Process the received message
     except Exception as e:
