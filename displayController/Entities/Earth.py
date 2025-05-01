@@ -44,27 +44,7 @@ class Earth(Entity):
         # EditorCamera()  # add camera controls for orbiting and moving the camera
         camera.position = (x, y, z)
         camera.look_at(self.upDirection)
-        
-        Entity(
-            model='cube',
-            color=color.white,
-            scale=1,
-            position=self.upDirection + Vec3(0, 1, 0)
-        )
-        
-        Entity(
-            model='cube',
-            color=color.pink,
-            scale=1,
-            position=self.upDirection + Vec3(0, 0, 0)
-        )
-        
-        Entity(
-            model='cube',
-            color=color.violet,
-            scale=1,
-            position=self.upDirection + Vec3(0, -1, 0)
-        )
+    
         
         
     def update(self):

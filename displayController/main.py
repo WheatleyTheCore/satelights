@@ -87,12 +87,12 @@ def postprocess_frame():
     planetColor = (128,0,255,255)
     
     rows, cols, _ = rgba_image.shape
-    cell_height_px = rows // 86 # since 86 lights per row
+    cell_height_px = rows // 90 # since 86 lights per row
     cell_width_px = cols // 11 # since 11 columns
     
     rgb_sequence = []
     for col_idx in range(11):
-        for row_idx in range(86):
+        for row_idx in range(90):
             row_start = row_idx * cell_height_px
             col_start = col_idx * cell_width_px
             img_cell = None
@@ -120,11 +120,11 @@ def postprocess_frame():
         pixel_idx = 0
         rgb_seq_idx = 0
         for col in range(11):
-            for row in range(86):
+            for row in range(90):
                 pixels[pixel_idx] = rgb_sequence[rgb_seq_idx]
                 pixel_idx += 1
                 rgb_seq_idx +=1 
-            for i in range (12):
+            for i in range (8):
                 pixels[pixel_idx] = (0, 0, 0)
                 pixel_idx +=1 
         pixels.show()
