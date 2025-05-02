@@ -45,15 +45,15 @@ function App() {
             />
             <group></group>
             <Stars />
-            <Grid
+            {/* <Grid
                 position={[0, -0.05, 0]}
                 cellSize={0.01}
                 cellThickness={1}
                 cellColor={"pink"}
-            />
+            /> */}
             <OrbitControls
-                minDistance={0}
-                maxDistance={0.001}
+                // minDistance={0}
+                // maxDistance={0.001}
                 onUpdate={() => {
                     console.log('update')
                     console.log(cameraRef.current?.rotation)
