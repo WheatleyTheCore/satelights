@@ -18,7 +18,7 @@ export default function Home() {
             world often helps with this, but it's something one must actively
             choose to do (and is also difficult in a city). This installation
             aims to be a reminder to appreciate it even so.
-            <img src={"/working_lights.png"} width={"600"} height={"800"} />
+            <img src={"/satelights/working_lights.png"} width={"600"} height={"800"} />
             <p>
                 As seen above, it consists of rows of RGB LED strings, that can
                 be individually controlled. As such, the night sky can be
@@ -34,13 +34,13 @@ export default function Home() {
                 where it can update accordingly.
             </p>
             <video
-                src={"site.MOV"}
+                src={"/satelightssite.MOV"}
                 width="800"
                 height="400"
                 controls="controls"
             />
             <video
-                src={"app.mp4"}
+                src={"/satelightsapp.mp4"}
                 width="800"
                 height="800"
                 controls="controls"
@@ -67,7 +67,7 @@ export default function Home() {
                 designed to have accurate distances between all objects.
             </p>
             <video
-                src={"spacemodel.MOV"}
+                src={"/satelightsspacemodel.MOV"}
                 width="400"
                 height="800"
                 controls="controls"
@@ -84,7 +84,7 @@ export default function Home() {
                 space model.
             </p>
             <video
-                src={"matrix.mp4"}
+                src={"/satelightsmatrix.mp4"}
                 width="400"
                 height="800"
                 controls="controls"
@@ -101,7 +101,7 @@ export default function Home() {
             </p>
             <h2>Project Presentation</h2>
             <video
-                src={"final_pres_final.mp4"}
+                src={"/satelightsfinal_pres_final.mp4"}
                 width="800"
                 height="400"
                 controls="controls"

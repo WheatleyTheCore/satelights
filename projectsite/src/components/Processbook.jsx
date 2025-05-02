@@ -46,7 +46,7 @@ const Processbook = () => {
                 that would go on the ceiling) graph working.
             </p>
 
-            <img src="/matlab_attempt.png" width={800} height={400} />
+            <img src="/satelights/matlab_attempt.png" width={800} height={400} />
 
             <p>
                 That's as far as I got before getting super busy again, and I
@@ -111,7 +111,7 @@ const Processbook = () => {
                 distance so that only visible stars would be included).
             </p>
             <video
-                src={"simplestars.mp4"}
+                src={"/satelightssimplestars.mp4"}
                 width="800"
                 height="800"
                 controls="controls"
@@ -159,7 +159,7 @@ const Processbook = () => {
                 as seen below, to hang the lights and power wires on.
             </p>
 
-            <img src="/hooks.jpg" width={800} height={400} />
+            <img src="/satelights/hooks.jpg" width={800} height={400} />
             <p> These hooks took two entire evenings to put up.</p>
 
             <p>
@@ -174,7 +174,7 @@ const Processbook = () => {
                 cabinets.
             </p>
             <video
-                src={"cabinets.MOV"}
+                src={"/satelightscabinets.MOV"}
                 width="800"
                 height="800"
                 controls="controls"
@@ -205,9 +205,9 @@ const Processbook = () => {
                 that. The soldering process was probably the longest part of the
                 process
             </p>
-            <img src="/soldering.png" width={600} height={800} />
+            <img src="/satelights/soldering.png" width={600} height={800} />
 
-            <img src="/power_supply.png" width={800} height={600} />
+            <img src="/satelights/power_supply.png" width={800} height={600} />
 
             <p>
                 Above is the 40W power supply that drives the system, powering
@@ -227,7 +227,7 @@ const Processbook = () => {
                 them. Surprisingly, they worked without much issue.
             </p>
 
-            <img src="/lightstest.png" width={800} height={600} />
+            <img src="/satelights/lightstest.png" width={800} height={600} />
 
             <p>
                 Then, I continued work on the ursina program. I write the stars
@@ -245,7 +245,7 @@ const Processbook = () => {
                 then went back and converted some of the previous things I
                 implemented to.{" "}
             </p>
-            <img src="/ursina.png" width={800} height={600} />
+            <img src="/satelights/ursina.png" width={800} height={600} />
             <p>
                 Here, I have the pink sattelites, purple planets, two lines
                 showing north and 0 degrees lat and lon. Based on these I could
@@ -272,13 +272,13 @@ const Processbook = () => {
                 Expo
             </p>
             <video
-                src={"app.mp4"}
+                src={"/satelightsapp.mp4"}
                 width="800"
                 height="800"
                 controls="controls"
             />
             <video
-                src={"site.MOV"}
+                src={"/satelightssite.MOV"}
                 width="800"
                 height="800"
                 controls="controls"
@@ -360,7 +360,7 @@ const Processbook = () => {
                 original design requirements.
             </p>
             <video
-                src={"matrix.mp4"}
+                src={"/satelightsmatrix.mp4"}
                 width="800"
                 height="800"
                 controls="controls"
