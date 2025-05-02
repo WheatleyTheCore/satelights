@@ -34,13 +34,13 @@ export default function Home() {
                 where it can update accordingly.
             </p>
             <video
-                src={"/satelightssite.MOV"}
+                src={"/satelights/site.MOV"}
                 width="800"
                 height="400"
                 controls="controls"
             />
             <video
-                src={"/satelightsapp.mp4"}
+                src={"/satelights/app.mp4"}
                 width="800"
                 height="800"
                 controls="controls"
@@ -67,7 +67,7 @@ export default function Home() {
                 designed to have accurate distances between all objects.
             </p>
             <video
-                src={"/satelightsspacemodel.MOV"}
+                src={"/satelights/spacemodel.MOV"}
                 width="400"
                 height="800"
                 controls="controls"
@@ -84,7 +84,7 @@ export default function Home() {
                 space model.
             </p>
             <video
-                src={"/satelightsmatrix.mp4"}
+                src={"/satelights/matrix.mp4"}
                 width="400"
                 height="800"
                 controls="controls"
@@ -101,7 +101,7 @@ export default function Home() {
             </p>
             <h2>Project Presentation</h2>
             <video
-                src={"/satelightsfinal_pres_final.mp4"}
+                src={"/satelights/final_pres_final.mp4"}
                 width="800"
                 height="400"
                 controls="controls"

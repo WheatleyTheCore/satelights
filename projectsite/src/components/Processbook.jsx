@@ -111,7 +111,7 @@ const Processbook = () => {
                 distance so that only visible stars would be included).
             </p>
             <video
-                src={"/satelightssimplestars.mp4"}
+                src={"/satelights/simplestars.mp4"}
                 width="800"
                 height="800"
                 controls="controls"
@@ -174,7 +174,7 @@ const Processbook = () => {
                 cabinets.
             </p>
             <video
-                src={"/satelightscabinets.MOV"}
+                src={"/satelights/cabinets.MOV"}
                 width="800"
                 height="800"
                 controls="controls"
@@ -272,13 +272,13 @@ const Processbook = () => {
                 Expo
             </p>
             <video
-                src={"/satelightsapp.mp4"}
+                src={"/satelights/app.mp4"}
                 width="800"
                 height="800"
                 controls="controls"
             />
             <video
-                src={"/satelightssite.MOV"}
+                src={"/satelights/site.MOV"}
                 width="800"
                 height="800"
                 controls="controls"
@@ -360,7 +360,7 @@ const Processbook = () => {
                 original design requirements.
             </p>
             <video
-                src={"/satelightsmatrix.mp4"}
+                src={"/satelights/matrix.mp4"}
                 width="800"
                 height="800"
                 controls="controls"
