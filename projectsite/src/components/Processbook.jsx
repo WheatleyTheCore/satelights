@@ -35,7 +35,7 @@ const Processbook = () => {
             </p>
 
             <p>
-                So I learned about propegating sattelite orbits and about
+                So I learned about propagating satellite orbits and about
                 keplerian elements and everything else I needed from Alfonso
                 Gonzalez's incredible{" "}
                 <a href="https://www.youtube.com/@alfonsogonzalez-astrodynam2207">
@@ -80,7 +80,7 @@ const Processbook = () => {
 
             <p>
                 At first I wanted to try to get this working on a single ESP32
-                with only satellite data becuase I love putting cool stuff on
+                with only satellite data because I love putting cool stuff on
                 tiny systems, but time constraints put that notion out of my
                 head.
             </p>
@@ -132,7 +132,7 @@ const Processbook = () => {
                 (I'd later learn that Ursina is build on Panda3D and actually
                 has worse documentation. I had to do a lot of hacking around the
                 engine's limitations, and so I ended up learning Panda3D anyways
-                coincedentally.) I nixed matplotlib as it didn't handle
+                coincidentally.) I nixed matplotlib as it didn't handle
                 animation as well.
             </p>
 
@@ -185,7 +185,7 @@ const Processbook = () => {
                 Raspberry Pi. Then I took my three 20-meter lengths of led
                 strings (purchased online), and cut them into 12 16-ft segments.
                 I then went through and tested them, marking which side I found
-                to be data-in. Having previously calculatted the maximum wattage
+                to be data-in. Having previously calculated the maximum wattage
                 the system could draw in normal functioning, I got 14-gauge wire
                 to do current injection at each end of each row. I set this
                 power cable up in two lines, and then stripped small segments of
@@ -200,7 +200,7 @@ const Processbook = () => {
             </p>
             <p>
                 After each added string of lights I tested a little "flash red"
-                program I had to make sure data was making it thorugh the system
+                program I had to make sure data was making it through the system
                 okay and that there weren't any issues. Below is a photo of
                 that. The soldering process was probably the longest part of the
                 process
@@ -212,12 +212,12 @@ const Processbook = () => {
             <p>
                 Above is the 40W power supply that drives the system, powering
                 the lights through the two large wires coming out (there are two
-                since one may be insufficent at high current draws), a raspberry
+                since one may be insufficient at high current draws), a raspberry
                 pi, and a little circuit that does logic-level shifting from the
                 Pi's 3.3V to the LED strip's 5V. This may actually be
                 unnecessary, but at one point I couldn't get one of the strings
                 to light and I thought signal attenuation could be the issue.
-                Unfortuantely, it was actually just that there was some sort of
+                Unfortunately, it was actually just that there was some sort of
                 internal short that killed it. (As such, it became a 12 by 98
                 pixel display to an 11 by 98 pixel display.)
             </p>
@@ -237,7 +237,7 @@ const Processbook = () => {
                 however due to the number of verticies I opted not to make them
                 move as that would be computationally expensive, and at the time
                 I still wanted to run this whole system on a Raspberry Pi. The
-                sattelites were put in using the{" "}
+                satellites were put in using the{" "}
                 <a href="https://rhodesmill.org/pyephem/quick.html">PyEphem</a>{" "}
                 library. During the implementation of the planets I realized
                 there was a more updated library called{" "}
@@ -267,7 +267,7 @@ const Processbook = () => {
                 interactivity, making web and mobile control interfaces I call
                 satelSite and sAppelite. I won't go too in-depth with the
                 details but to say the website controller code reused a lot of
-                the graphics code from my orignial Three attempt, and the other
+                the graphics code from my original Three attempt, and the other
                 one was built with React Native and loaded onto my phone using
                 Expo
             </p>
@@ -298,7 +298,7 @@ const Processbook = () => {
                 interface too, and was able to get accelerometer data through
                 the{" "}
                 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Accelerometer">
-                    experiemental web sensors api
+                    experimental web sensors api
                 </a>
                 , but couldn't get magnetometer data, which is needed to
                 properly orient the directional data from the accelerometer.
@@ -307,7 +307,7 @@ const Processbook = () => {
                 And then came the evil of getting img data back from the
                 GPU/display and into the CPU's domain. This..... was absolutely
                 horrible. Through a sacrifice of a million hours and a portion
-                of my sanity (and reading thorugh a lot of the Panda3D docs and
+                of my sanity (and reading through a lot of the Panda3D docs and
                 Ursina source code) I was able to learn that you can take a
                 screenshot into a texture object and then get the data from the
                 RAM from that object and then you have to do some
@@ -321,9 +321,9 @@ const Processbook = () => {
             </p>
 
             <p>
-                Once that was working, I had to get the alorithm to turn the
+                Once that was working, I had to get the algorithm to turn the
                 img into a stream of rgb data for the leds, with each 98-pixel
-                segement being flipped since they are wired in the aformentioned
+                segment being flipped since they are wired in the aforementioned
                 zigzag pattern. This was relatively simple, however. In short, I
                 just iterate over columns of cells, figure out what the nearest
                 object in said cell is, and make that cell's corresponding
@@ -337,7 +337,7 @@ const Processbook = () => {
                 Then, I tried putting it all on the Pi and running it. This
                 required messing with some python permissions in order to get it
                 to play nicely with the led driver library (which requires root
-                privelages), but otherwuise worked first try. Alas, the
+                privileges), but otherwise worked first try. Alas, the
                 concurrent web socket thread and postprocessing math for
                 conversion to led-strip data slowed it down too much. I believe
                 this is solvable, but not within the time of this project.
@@ -354,7 +354,7 @@ const Processbook = () => {
                 reason). Unfortuantely this was <i>still</i> too much for the
                 pi, and I suspect there's some quirk about multithreading on it
                 I have yet to find. In any case it now performs at a more
-                accepable speed. In fact, in non-interactive settings where the
+                acceptable speed. In fact, in non-interactive settings where the
                 only motion is the motion of satellites and planets across the
                 sky, it will be more than fast enough, so it satisfies my
                 original design requirements.

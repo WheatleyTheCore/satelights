@@ -13,7 +13,7 @@ export default function Home() {
                 experience and inspiration.
             </p>
             <h2>Intended Audience</h2>
-            WPI students (espeically those living in my apartment) tend to be
+            WPI students (especially those living in my apartment) tend to be
             very stressed. Going out in nature and being reminded of the larger
             world often helps with this, but it's something one must actively
             choose to do (and is also difficult in a city). This installation
@@ -22,7 +22,7 @@ export default function Home() {
             <p>
                 As seen above, it consists of rows of RGB LED strings, that can
                 be individually controlled. As such, the night sky can be
-                projected and dynaimcally updated based on user input. (I
+                projected and dynamically updated based on user input. (I
                 promise it's much more pretty in person.)
             </p>
             <p>
@@ -47,11 +47,11 @@ export default function Home() {
             />
             <p>
                 Both communicate over the network, with the idea being that both
-                people can connect from their mobile device (provided they're on
+                 can connect from their mobile device (provided they're on
                 the same wifi network as the system) and control it.
             </p>
             <p>
-                The System they are controlling is 3D model of most visible
+                The system they are controlling is 3D model of most visible
                 stars, the planets of the solar system, and a number of orbiting
                 satellites. This data is updated in real time, so the display
                 shows a model of the sky as it would be visible from your
@@ -60,9 +60,9 @@ export default function Home() {
             <p>
                 Below is a video showing the systeml with the camera moved so
                 you can see the earth and viewer. The viewer is shown as an
-                orage rectangle, the planets are purple blobs, and the stars are
+                orange rectangle, the planets are purple blobs, and the stars are
                 white cubes. For visibility once going through the
-                img-to-LED-maxtrix algorithm the stars and planets are only a
+                img-to-LED-matrix algorithm the stars and planets are only a
                 fourth of their actual distance, but the system is originally
                 designed to have accurate distances between all objects.
             </p>
@@ -92,7 +92,7 @@ export default function Home() {
             <p>
                 The framerate is unfortunately a little low, but it's been
                 faster when the Raspberry Pi it's running on isn't also
-                listening to the network communications. This is still something
+                listening for network communications. This is still something
                 I am working on.
             </p>
             <p>
