@@ -111,7 +111,8 @@ def postprocess_frame():
                 img_cell = rgba_image[row_start:row_start + cell_height_px, col_start:col_start+cell_width_px, :]
             contains_sat = np.where( np.all(img_cell == satColor, axis=-1))[0].size != 0
             contains_planet = np.where( np.all(img_cell == planetColor, axis=-1))[0].size != 0
-            contains_star = np.where( np.all(img_cell == starColor, axis=-1))[0].size > 3
+            contains_star = np.where( np.all(img_cell == starColor, axis=-1))[0].size > 2
+
             
             if contains_sat:
                 rgb_sequence.append((255, 0, 128))
